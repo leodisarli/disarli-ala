@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Domains\Health\Http\Controllers;
+
+use App\Http\Controllers\BaseController;
+
+class HealthApiController extends BaseController
+{
+    /**
+     * process the request
+     * @return JsonObject
+     */
+    public function process()
+    {
+        return response()->json(
+            [
+                'status' => 'online'
+            ],
+            200
+        );
+    }
+}

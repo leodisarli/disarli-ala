@@ -1,0 +1,29 @@
+version: '3'
+services:
+  ala-nginx:
+    image: leosarli/ala-nginx
+    container_name: ala-nginx
+    ports:
+     - 8087:80
+    volumes:
+     - .:/var/www/html
+
+  ala-php:
+    image: leosarli/ala-php
+    container_name: ala-php
+    volumes:
+     - .:/var/www/html
+  
+  ala-mysql:
+    image: mysql:8.0.16
+    container_name: ala-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=ala
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./storage/.db:/var/lib/mysql
+    security_opt:
+      - seccomp:unconfined

@@ -1,0 +1,57 @@
+<?php
+
+namespace Tests\Feature\Domains\{{domainCaps}};
+
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Tests\Feature\TestCaseFeature;
+
+class {{domainCaps}}BulkControllerTest extends TestCaseFeature
+{
+    use DatabaseMigrations;
+
+    /**
+     * @covers \App\Domains\{{domainCaps}}\Http\Controllers\{{domainCaps}}BulkController::__construct
+     */
+    public function testRequiredFields()
+    {
+        $this->json('POST', '/{{domainOriginal}}/bulk', [], $this->header);
+
+        $response = [
+            'message' => 'A validation error occurrs',
+            'data' => [
+                'ids' => [
+                    'The ids field is required.'
+                ],
+            ]
+        ];
+
+        $result = json_decode($this->response->getContent(), true);
+
+        $this->assertEquals(422, $this->response->getStatusCode());
+        $this->assertEquals('A validation error occurrs', $result['message']);
+        $this->assertEquals($response['data'], $result['data']);
+    }
+
+    /**
+     * @covers \App\Domains\{{domainCaps}}\Http\Controllers\{{domainCaps}}BulkController::__construct
+     * @covers \App\Domains\{{domainCaps}}\Http\Controllers\{{domainCaps}}BulkController::process
+     * @covers \App\Domains\{{domainCaps}}\Businesses\{{domainCaps}}BulkBusiness::__construct
+     * @covers \App\Domains\{{domainCaps}}\Businesses\{{domainCaps}}BulkBusiness::process
+     */
+    public function testBulk()
+    {
+        $ids = [
+            '8ddc0c57-b08e-4b73-960f-178242b40476',
+            '8ddc0c57-b08e-4b73-960f-178242b40473',
+            '8ddc0c57-b08e-4b73-960f-178242b40472',
+        ];
+
+        $this->json('POST', '/{{domainOriginal}}/bulk', ['ids' => $ids], $this->header);
+
+        $response = json_decode($this->response->getContent(), true);
+
+        $this->assertEquals(200, $this->response->getStatusCode());
+        $this->assertEquals('http://localhost/{{domainOriginal}}/bulk?page=1', $response['data']['first_page_url']);
+        $this->assertEquals(25, $response['data']['per_page']);
+    }
+}

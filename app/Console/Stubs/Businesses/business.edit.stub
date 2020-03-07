@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Domains\{{domainCaps}}\Businesses;
+
+use App\Domains\{{domainCaps}}\Repositories\{{domainCaps}}EditRepository;
+
+class {{domainCaps}}EditBusiness
+{
+    private ${{domain}}EditRepository;
+
+    /**
+     * constructor
+     * @param {{domainCaps}}EditRepository ${{domain}}EditRepository
+     * @return void
+     */
+    public function __construct(
+        {{domainCaps}}EditRepository ${{domain}}EditRepository
+    ) {
+        $this->{{domain}}EditRepository = ${{domain}}EditRepository;
+    }
+
+    /**
+     * process the request with business rules
+     * @param array $data
+     * @param string $id
+     * @throws \Exception
+     * @return object
+     */
+    public function process(
+        array $data,
+        string $id
+    ) {
+        $exists = $this->{{domain}}EditRepository->getById(
+            $id
+        );
+        if (empty($exists)) {
+            throw new \Exception(
+                'Data not found',
+                404
+            );
+        }
+        $this->{{domain}}EditRepository->update(
+            $data,
+            $id
+        );
+        return $this->{{domain}}EditRepository->getById(
+            $id
+        );
+    }
+}

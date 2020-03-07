@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Domains\{{domainCaps}}\Businesses;
+
+use App\Domains\{{domainCaps}}\Repositories\{{domainCaps}}DeadDetailRepository;
+
+class {{domainCaps}}DeadDetailBusiness
+{
+    private ${{domain}}DeadDetailRepository;
+
+    /**
+     * constructor
+     * @param {{domainCaps}}DeadDetailRepository ${{domain}}DeadDetailRepository
+     * @return void
+     */
+    public function __construct(
+        {{domainCaps}}DeadDetailRepository ${{domain}}DeadDetailRepository
+    ) {
+        $this->{{domain}}DeadDetailRepository = ${{domain}}DeadDetailRepository;
+    }
+
+    /**
+     * process the request with business rules
+     * @param string $id
+     * @throws \Exception
+     * @return object
+     */
+    public function process(
+        string $id
+    ) {
+        $result = $this->{{domain}}DeadDetailRepository->getDeadById(
+            $id
+        );
+        if (empty($result)) {
+            throw new \Exception('Data not found', 404);
+        }
+        return $result;
+    }
+}

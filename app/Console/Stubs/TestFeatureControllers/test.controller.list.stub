@@ -1,0 +1,28 @@
+<?php
+
+namespace Tests\Feature\Domains\{{domainCaps}};
+
+use Laravel\Lumen\Testing\DatabaseMigrations;
+use Tests\Feature\TestCaseFeature;
+
+class {{domainCaps}}ListControllerTest extends TestCaseFeature
+{
+    use DatabaseMigrations;
+
+    /**
+     * @covers \App\Domains\{{domainCaps}}\Http\Controllers\{{domainCaps}}ListController::__construct
+     * @covers \App\Domains\{{domainCaps}}\Http\Controllers\{{domainCaps}}ListController::process
+     * @covers \App\Domains\{{domainCaps}}\Businesses\{{domainCaps}}ListBusiness::__construct
+     * @covers \App\Domains\{{domainCaps}}\Businesses\{{domainCaps}}ListBusiness::process
+     */
+    public function testList()
+    {
+        $this->json('GET', '/{{domainOriginal}}/list', [], $this->header);
+
+        $response = json_decode($this->response->getContent(), true);
+
+        $this->assertEquals(200, $this->response->getStatusCode());
+        $this->assertEquals('http://localhost/{{domainOriginal}}/list?page=1', $response['data']['first_page_url']);
+        $this->assertEquals(25, $response['data']['per_page']);
+    }
+}

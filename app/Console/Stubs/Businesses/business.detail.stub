@@ -1,0 +1,42 @@
+<?php
+
+namespace App\Domains\{{domainCaps}}\Businesses;
+
+use App\Domains\{{domainCaps}}\Repositories\{{domainCaps}}DetailRepository;
+
+class {{domainCaps}}DetailBusiness
+{
+    private ${{domain}}DetailRepository;
+
+    /**
+     * constructor
+     * @param {{domainCaps}}DetailRepository ${{domain}}DetailRepository
+     * @return void
+     */
+    public function __construct(
+        {{domainCaps}}DetailRepository ${{domain}}DetailRepository
+    ) {
+        $this->{{domain}}DetailRepository = ${{domain}}DetailRepository;
+    }
+
+    /**
+     * process the request with business rules
+     * @param string $id
+     * @throws \Exception
+     * @return object
+     */
+    public function process(
+        string $id
+    ) {
+        $result = $this->{{domain}}DetailRepository->getById(
+            $id
+        );
+        if (empty($result)) {
+            throw new \Exception(
+                'Data not found',
+                404
+            );
+        }
+        return $result;
+    }
+}
