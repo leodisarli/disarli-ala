@@ -237,8 +237,8 @@ class BaseRepositoryTest extends TestCase
         $data = [
             'id' => $id,
             'name' => 'teste',
-            'created' => date('Y-m-d H:i:d'),
-            'modified' => date('Y-m-d H:i:d'),
+            'created' => date('Y-m-d H:i:s'),
+            'modified' => date('Y-m-d H:i:s'),
         ];
 
         $dbMock = Mockery::mock(DatabaseManager::class)
@@ -277,7 +277,7 @@ class BaseRepositoryTest extends TestCase
 
         $data = [
             'name' => 'teste',
-            'modified' => date('Y-m-d H:i:d'),
+            'modified' => date('Y-m-d H:i:s'),
         ];
 
         $dbMock = Mockery::mock(DatabaseManager::class)
@@ -317,8 +317,8 @@ class BaseRepositoryTest extends TestCase
         $id = '123456';
 
         $data = [
-            'modified' => date('Y-m-d H:i:d'),
-            'deleted' => date('Y-m-d H:i:d'),
+            'modified' => date('Y-m-d H:i:s'),
+            'deleted' => date('Y-m-d H:i:s'),
         ];
 
         $dbMock = Mockery::mock(DatabaseManager::class)
